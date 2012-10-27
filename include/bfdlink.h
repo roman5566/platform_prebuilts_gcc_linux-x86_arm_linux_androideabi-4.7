@@ -95,9 +95,6 @@ struct bfd_link_hash_entry
 
   unsigned int non_ir_ref : 1;
 
-  /* Set if it is a secondary symbol.  */
-  unsigned int secondary : 1;
-
   /* A union of information depending upon the type.  */
   union
     {
@@ -232,7 +229,7 @@ typedef enum {with_flags, without_flags} flag_type;
 /* A section flag list.  */
 struct flag_info_list
 {
-  flag_type with;
+  flag_type with; 
   const char *name;
   bfd_boolean valid;
   struct flag_info_list *next;
@@ -349,9 +346,6 @@ struct bfd_link_info
   /* TRUE if .gnu.hash section should be created.  */
   unsigned int emit_gnu_hash: 1;
 
-  /* TRUE if secondary symbols should be generated.  */
-  unsigned int emit_secondary: 1;
-
   /* If TRUE reduce memory overheads, at the expense of speed. This will
      cause map file generation to use an O(N^2) algorithm and disable
      caching ELF symbol buffer.  */
@@ -386,21 +380,12 @@ struct bfd_link_info
   /* TRUE if ok to have multiple definition.  */
   unsigned int allow_multiple_definition: 1;
 
-  /* TRUE if .gnu_object_only section should be created.  */
-  unsigned int emit_gnu_object_only: 1;
-
-  /* TRUE if .gnu_object_only section is being created.  */
-  unsigned int emitting_gnu_object_only: 1;
-
   /* TRUE if ok to have version with no definition.  */
   unsigned int allow_undefined_version: 1;
 
   /* TRUE if some symbols have to be dynamic, controlled by
      --dynamic-list command line options.  */
   unsigned int dynamic: 1;
-
-  /* TRUE if sharables sections may be created.  */
-  unsigned int sharable_sections: 1;
 
   /* TRUE if PT_GNU_STACK segment should be created with PF_R|PF_W|PF_X
      flags.  */
@@ -419,9 +404,6 @@ struct bfd_link_info
 
   /* TRUE if we should warn alternate ELF machine code.  */
   unsigned int warn_alternate_em: 1;
-
-  /* TRUE if the linker script contained an explicit PHDRS command.  */
-  unsigned int user_phdrs: 1;
 
   /* Char that may appear as the first char of a symbol, but should be
      skipped (like symbol_leading_char) when looking up symbols in
@@ -692,8 +674,8 @@ struct bfd_link_order
 	} indirect;
       struct
 	{
-	  /* Size of contents, or zero when contents should be filled by
-	     the architecture-dependent fill function.
+	  /* Size of contents, or zero when contents size == size
+	     within output section.
 	     A non-zero value allows filling of the output section
 	     with an arbitrary repeated pattern.  */
 	  unsigned int size;
