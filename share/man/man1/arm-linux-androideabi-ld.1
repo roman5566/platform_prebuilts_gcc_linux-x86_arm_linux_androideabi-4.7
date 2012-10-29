@@ -124,7 +124,7 @@
 .\" ========================================================================
 .\"
 .IX Title "LD 1"
-.TH LD 1 "2012-10-29" "binutils-2.22.52.0.4" "GNU Development Tools"
+.TH LD 1 "2012-10-29" "binutils-2.21.53.0.2" "GNU Development Tools"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -1116,20 +1116,21 @@ option.
 .PD
 This option affects the treatment of dynamic libraries referred to 
 by \s-1DT_NEEDED\s0 tags \fIinside\fR \s-1ELF\s0 dynamic libraries mentioned on the
-command line.  Normally the linker won't add a \s-1DT_NEEDED\s0 tag to the
+command line.  Normally the linker will add a \s-1DT_NEEDED\s0 tag to the
 output binary for each library mentioned in a \s-1DT_NEEDED\s0 tag in an
-input dynamic library.  With \fB\-\-copy\-dt\-needed\-entries\fR
+input dynamic library.  With \fB\-\-no\-copy\-dt\-needed\-entries\fR
 specified on the command line however any dynamic libraries that
-follow it will have their \s-1DT_NEEDED\s0 entries added.  The default
-behaviour can be restored with \fB\-\-no\-copy\-dt\-needed\-entries\fR.
+follow it will have their \s-1DT_NEEDED\s0 entries ignored.  The default
+behaviour can be restored with \fB\-\-copy\-dt\-needed\-entries\fR.
 .Sp
 This option also has an effect on the resolution of symbols in dynamic
-libraries.  With \fB\-\-copy\-dt\-needed\-entries\fR dynamic libraries
-mentioned on the command line will be recursively searched, following
-their \s-1DT_NEEDED\s0 tags to other libraries, in order to resolve symbols
-required by the output binary.  With the default setting however
-the searching of dynamic libraries that follow it will stop with the
-dynamic library itself.  No \s-1DT_NEEDED\s0 links will be traversed to resolve
+libraries.  With the default setting dynamic libraries mentioned on
+the command line will be recursively searched, following their
+\&\s-1DT_NEEDED\s0 tags to other libraries, in order to resolve symbols
+required by the output binary.  With
+\&\fB\-\-no\-copy\-dt\-needed\-entries\fR specified however the searching
+of dynamic libraries that follow it will stop with the dynamic
+library itself.  No \s-1DT_NEEDED\s0 links will be traversed to resolve
 symbols.
 .IP "\fB\-\-cref\fR" 4
 .IX Item "--cref"
